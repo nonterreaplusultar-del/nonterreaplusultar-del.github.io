@@ -190,6 +190,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://jerrylove.qzz.io/talks/2025-8-25-talk">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="Richard Lee">
+      <meta itemprop="description" content="cherish what I lost and return my better future">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jerrylove's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/talks/2025-8-25-talk" class="post-title-link" itemprop="url">数据库学习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-08-25 00:00:00" itemprop="dateCreated datePublished" datetime="2025-08-25T00:00:00-07:00">2025-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-09-29 05:41:09" itemprop="dateModified" datetime="2025-09-29T05:41:09-07:00">2025-09-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h2><h3 id="SQL的通用语法"><a href="#SQL的通用语法" class="headerlink" title="SQL的通用语法"></a>SQL的通用语法</h3><p><strong>SQL语句分类</strong></p>
+<blockquote>
+<p>DDL 数据定义语言，定义数据库对象，数据库，表，字段<br>DML 数据操作语句，对表中的数据进行修改<br>DQL 数据查询,对数据库中的表进行查询<br>DCL 数据控制语句，创建用户，进行用户访问权限设置、</p>
+</blockquote>
+<h3 id="DDL语句"><a href="#DDL语句" class="headerlink" title="DDL语句"></a>DDL语句</h3><p>-数据库</p>
+<blockquote>
+<p>SHOW DATABASE<br>SELECT DATABASE()<br>*创建<br>CREATE DATABASE [IF NOT EXIST]数据库名字 [DEFAULT CHARSET]字符集[COLLATE 排序规则]<br>*删除<br>DROP DATABASE [database name]</p>
+</blockquote>
+<p>-表<br>*创建表</p>
+<blockquote>
+<p>create table [table name]<br>*查询表<br>desc [table name]<br>*查询详细信息<br>show create table [table name]</p>
+</blockquote>
+<p>-表结构数据类型<br>*数值类型<br>整型类型：</p>
+<blockquote>
+<p>Tinyint smallint mediumint int<br>浮点数类型：<br>float double decimal<br>字符串类型：<br>char varchar tinyblob(二进制数据) tinytext mediumblob mediumtext<br>定长字符串 char(10);即使输入一个字符也会占用十个字符的空间<br>变长 varchar(10):会根据实际情况占据空间，但是性能不好<br>日期类型：<br>date:日期<br>time:时分秒<br>datetime 混合日期<br>year:只有年份</p>
+</blockquote>
+<p>案例如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> stafftb(</span><br><span class="line">    id <span class="type">int</span> ,</span><br><span class="line">    workernum <span class="type">varchar</span>(<span class="number">10</span>),</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">10</span>) comment <span class="string">&#x27;姓名&#x27;</span>,</span><br><span class="line">    gender <span class="type">char</span>(<span class="number">1</span>) comment <span class="string">&#x27;性别&#x27;</span>,</span><br><span class="line">    age tinyint unsigned comment <span class="string">&#x27;年龄&#x27;</span>,</span><br><span class="line">    idcard <span class="type">char</span>(<span class="number">18</span>) comment <span class="string">&#x27;身份证&#x27;</span>,</span><br><span class="line">    entrydate <span class="type">date</span> comment <span class="string">&#x27;入职时间&#x27;</span></span><br><span class="line"></span><br><span class="line">) comment <span class="string">&#x27;员工表&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>-修改表的操作<br>*王表结构中添加字段</p>
+<blockquote>
+<p>alter table tablename add 字段名 数据类型 [comment][约束]<br>例如，像emp这张表中添加字段:</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> emp(</span><br><span class="line">    id tinyint unsigned</span><br><span class="line">)comment <span class="string">&#x27;test&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter table</span> emp <span class="keyword">add</span> nickname <span class="type">varchar</span>(<span class="number">50</span>) comment <span class="string">&#x27;nickname&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>*修改表中的字段<br>修改数据类型</p>
+<blockquote>
+<p>alter table tablename modify 字段名 新数据类型<br>修改字段名字合数据类型<br>alter table tablename modify 旧字段名 新字段名 新数据类型<br>例如奖emp中的 nickname 修改为username 数据类型 varchar(30)</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter table</span> emp change nickname username <span class="type">varchar</span>(<span class="number">30</span>);</span><br></pre></td></tr></table></figure>
+<p>*删除字段</p>
+<blockquote>
+<p>alter table tablename drop 字段名字；<br>*修改表名<br>alter table tablename rename to 新名字；<br>*delect table<br>drop table tablename;<br>还有一个</p>
+</blockquote>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h3 id="DQL"><a href="#DQL" class="headerlink" title="DQL"></a>DQL</h3><p>查询数据库所有表</p>
+<blockquote>
+<p>show tables</p>
+</blockquote>
+<p>查询表结构</p>
+<blockquote>
+<p>DESC [table name]</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://jerrylove.qzz.io/talks/2025-8-20-talk">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -856,72 +961,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://jerrylove.qzz.io/talks/2025-8-2-talk">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="Richard Lee">
-      <meta itemprop="description" content="cherish what I lost and return my better future">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jerrylove's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/talks/2025-8-2-talk" class="post-title-link" itemprop="url">刷完HOT100感想</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2025-08-02 00:00:00" itemprop="dateCreated datePublished" datetime="2025-08-02T00:00:00-07:00">2025-08-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-09-29 05:41:09" itemprop="dateModified" datetime="2025-09-29T05:41:09-07:00">2025-09-29</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>昨天晚上依旧睡得很晚。大概凌晨三点多才睡着。我是今天早上10点钟醒来的。醒来的时候，脑子还是昏昏沉沉的。看了一会儿抖音，然后吃了一点早餐。下午的话，主要还是做lakode。然后我在今天达成了一个成就，不论如何，我把lico的一百刷完了。说完之后，我在创新港里面逛了一下。在路上走的时候。我觉得想一个问题。我在想，如何能让我更加的积极向上，以一个昂扬的姿态继续奋斗。其实我在路上没有想这是我临时想出来的。我觉得只有不断的昂扬向上的奋斗才能够。一点点洗刷我过去的苦涩。等到我不断进步之后，回首往昔，我会发现。之后的自己相较于现在的自己，已经有了多么大的进步与成就。所以我选择不断的进行学习。顺便准备上我的项目。</p>
-<p>现在已经八月份，离九月是很近的。九月开学之后，我希望自己能够。不断进行运动。每天晚上保持运动在一个小时到一个半小时左右。如果是纯运动时间的话，我希望可以保持到一个小时。我希望可以花半个小时来进行一些力量的训练，再花半个小时进行一个呃五到六公里的长跑。呃，每天坚持。我觉得在十一月份一定会有我自己的答案。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -993,14 +1032,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
